@@ -1,0 +1,7 @@
+discord
+docker
+PyGithub
+StackAPI
+pymongo
+dnspython
+Pillow
