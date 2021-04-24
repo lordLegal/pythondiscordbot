@@ -14,6 +14,7 @@ from discord import Member, channel, embeds
 from discord.ext import commands, tasks
 from discord.ext.commands import has_permissions
 from discord.ext.commands.cooldowns import BucketType
+from discord.utils import get
 from docker.api import container
 from github import Github
 from PIL import Image, ImageDraw, ImageFont
@@ -171,12 +172,45 @@ async def on_command_error(ctx, error):
         embed.add_field(
             name="bug", value="If you found a bug please report it with this command **ONLY USE THIS IN DMs**", inline=False)
         embed.add_field(
-            name="setdefaultrole", value="You can set a default role for new members with 'setdefaultfrole **the role** watch out its case-sensitive'", inline=False)
-        embed.add_field(
-            name="changeprefix", value="You change the default prefix from $ to what ever you want with 'changeprefix **new_prefix**'", inline=False)
-        embed.add_field(
             name="clear", value="You can clear channels with 'clear **the number of deleted messages**'", inline=False)
+        embed.add_field(
+            name="leaderboard", value="You can see the leaderboard of the server", inline=False)
+        embed.add_field(
+            name="lvl", value="You can see the xp or the lvl and the rank with 'lvl' or 'lvl @MEMBER'", inline=False)
+        embed.add_field(
+            name="aliases", value="You can see all aliases for each command", inline=False)
+        embed.add_field(
+            name="set", value="You can set the setting of your server[defaultrole, prefix, lvl] (CAN ONLY BE USED FROM ADMINS)", inline=False)
+        embed.add_field(
+            name="stackoverflow", value="You can search for questions in Stack Overflow", inline=False)
         await ctx.send(embed=embed)
+
+
+async def error_not_found(ctx):
+    embed = discord.Embed(title="Command not Found", color=0xff0000)
+    embed.set_author(name="Python-bot")
+    embed.set_thumbnail(url="https://i.imgur.com/pMPV4Qq.png")
+    embed.add_field(
+        name="py3", value="run python3 code with 'py2 ** githublink the script name** **pip packteches**'", inline=False)
+    embed.add_field(
+        name="py2", value="run python2 code with 'py2 ** githublink the script name** **pip packteches**'", inline=False)
+    embed.add_field(
+        name="github", value="search repos with 'github **keywords**'", inline=False)
+    embed.add_field(
+        name="bug", value="If you found a bug please report it with this command **ONLY USE THIS IN DMs**", inline=False)
+    embed.add_field(
+        name="clear", value="You can clear channels with 'clear **the number of deleted messages**'", inline=False)
+    embed.add_field(
+        name="leaderboard", value="You can see the leaderboard of the server", inline=False)
+    embed.add_field(
+        name="lvl", value="You can see the xp or the lvl and the rank with 'lvl' or 'lvl @MEMBER'", inline=False)
+    embed.add_field(
+        name="aliases", value="You can see all aliases for each command", inline=False)
+    embed.add_field(
+        name="set", value="You can set the setting of your server[defaultrole, prefix, lvl] (CAN ONLY BE USED FROM ADMINS)", inline=False)
+    embed.add_field(
+        name="stackoverflow", value="You can search for questions in Stack Overflow", inline=False)
+    await ctx.send(embed=embed)
 
 
 def gen_rank(str_guid, str_usrid):
@@ -239,7 +273,7 @@ async def on_message(ev_message):
         author_name = name + "#" + tag
         gus = gu.find_one({"_id": gu_id_int})
         da_ad = gus['lvl']
-        if da_ad == 'yes' and mag_id != "815493412877893643" and mag_id != '815492748249399306':
+        if da_ad == 'yes' and mag_id != "823141173853028353" and mag_id != '815492748249399306':
             mag = ev_message
             mag_id = str(mag.author.id)
             print(mag_id)
@@ -333,61 +367,91 @@ async def on_message(ev_message):
                 date_re = int(fo_mag_id['ids'][3]['date'])
                 lvl = int(fo_mag_id['ids'][4]['LVL'])
                 msg = msg_int + 1
-                xp = xp_int + 5
+                xp = xp_int + 1
 
                 print("error")
 
                 if mag_id == fo_id:
-                    if date_re < date24:    # +5 Standard + 29 Jahres Bonus
-                        xps = xp
-                    if date_re < date23:    # +5 Standard + 27 Jahres Bonus
-                        xps = xp
-                    if date_re < date22:    # +5 Standard + 26 Jahres Bonus
-                        xps = xp
-                    if date_re < date21:    # +5 Standard + 25 Jahres Bonus
-                        xps = xp
-                    if date_re < date20:    # +5 Standard + 24 Jahres Bonus
-                        xps = xp + 24
-                    if date_re < date19:    # +5 Standard + 23 Jahres Bonus
-                        xps = xp + 23
-                    if date_re < date18:    # +5 Standard + 22 Jahres Bonus
-                        xps = xp + 22
-                    if date_re < date17:    # +5 Standard + 21 Jahres Bonus
-                        xps = xp + 21
-                    if date_re < date16:    # +5 Standard + 20 Jahres Bonus
-                        xps = xp + 20
-                    if date_re < date15:    # +5 Standard + 19 Jahres Bonus
-                        xps = xp + 19
-                    if date_re < date14:    # +5 Standard + 18 Jahres Bonus
-                        xps = xp + 18
-                    if date_re < date13:    # +5 Standard + 17 Jahres Bonus
-                        xps = xp + 17
-                    if date_re < date12:    # +5 Standard + 16 Jahres Bonus
-                        xps = xp + 16
-                    if date_re < date11:    # +5 Standard + 15 Jahres Bonus
-                        xps = xp + 15
-                    if date_re < date10:    # +5 Standard + 14 Jahres Bonus
-                        xps = xp + 14
-                    if date_re < date9:    # +5 Standard + 13 Jahres Bonus
-                        xps = xp + 13
-                    if date_re < date8:    # +5 Standard + 12 Jahres Bonus
-                        xps = xp + 12
-                    if date_re < date7:    # +5 Standard + 11 Jahres Bonus
-                        xps = xp + 11
-                    if date_re < date6:    # +5 Standard + 10 Jahres Bonus
-                        xps = xp + 10
-                    if date_re < date5:    # +5 Standard + 9 Jahres Bonus
-                        xps = xp + 9
-                    if date_re < date4:    # +5 Standard + 8 Jahres Bonus
-                        xps = xp + 8
-                    if date_re < date3:    # +5 Standard + 7 Jahres Bonus
+                    x = True
+                    if date_re < date1 and x == True:    # +5 Standard + 5 Jahres Bonus
+                        x = False
+                        xps = xp + 5
+                    if date_re < date2 and x == True:    # +5 Standard + 5 Jahres Bonus
+                        x = False
+                        xps = xp + 5
+                    if date_re < date3 and x == True:    # +5 Standard + 7 Jahres Bonus
+                        x = False
                         xps = xp + 7
-                    if date_re < date2:    # +5 Standard + 5 Jahres Bonus
-                        xps = xp + 5
-                    if date_re < date1:    # +5 Standard + 5 Jahres Bonus
-                        xps = xp + 5
-                    if date_re > date1:  # +5 Standard + 2 meh als ein JahrBonus
-                        xps = xp + 2
+                    if date_re < date4 and x == True:    # +5 Standard + 8 Jahres Bonus
+                        x = False
+                        xps = xp + 8
+                    if date_re < date5 and x == True:    # +5 Standard + 9 Jahres Bonus
+                        x = False
+                        xps = xp + 9
+                    if date_re < date6 and x == True:    # +5 Standard + 10 Jahres Bonus
+                        x = False
+                        xps = xp + 10
+                    if date_re < date7 and x == True:    # +5 Standard + 11 Jahres Bonus
+                        x = False
+                        xps = xp + 11
+                    if date_re < date8 and x == True:    # +5 Standard + 12 Jahres Bonus
+                        x = False
+                        xps = xp + 12
+                    if date_re < date9 and x == True:    # +5 Standard + 13 Jahres Bonus
+                        x = False
+                        xps = xp + 13
+                    if date_re < date10 and x == True:    # +5 Standard + 14 Jahres Bonus
+                        x = False
+                        xps = xp + 14
+                    if date_re < date11 and x == True:    # +5 Standard + 15 Jahres Bonus
+                        x = False
+                        xps = xp + 15
+                    if date_re < date12 and x == True:    # +5 Standard + 16 Jahres Bonus
+                        x = False
+                        xps = xp + 16
+                    if date_re < date13 and x == True:    # +5 Standard + 17 Jahres Bonus
+                        x = False
+                        xps = xp + 17
+                    if date_re < date14 and x == True:    # +5 Standard + 18 Jahres Bonus
+                        x = False
+                        xps = xp + 18
+                    if date_re < date15 and x == True:    # +5 Standard + 19 Jahres Bonus
+                        x = False
+                        xps = xp + 19
+                    if date_re < date16 and x == True:    # +5 Standard + 20 Jahres Bonus
+                        x = False
+                        xps = xp + 20
+                    if date_re < date17 and x == True:    # +5 Standard + 21 Jahres Bonus
+                        x = False
+                        xps = xp + 21
+                    if date_re < date18 and x == True:    # +5 Standard + 22 Jahres Bonus
+                        x = False
+                        xps = xp
+                        print("ja")
+                    if date_re < date19 and x == True:    # +5 Standard + 23 Jahres Bonus
+                        x = False
+                        xps = xp
+                        print("ja")
+                    if date_re < date20 and x == True:    # +5 Standard + 24 Jahres Bonus
+                        x = False
+                        xps = xp
+                        print("ja")
+                    if date_re < date21 and x == True:    # +5 Standard + 25 Jahres Bonus
+                        x = False
+                        xps = xp
+                        print("ja")
+                    if date_re < date22 and x == True:    # +5 Standard + 26 Jahres Bonus
+                        x = False
+                        xps = xp
+                        print("ja")
+                    if date_re < date23 and x == True:    # +5 Standard + 27 Jahres Bonus
+                        x = False
+                        xps = xp + 3
+                        print("ja")
+                    if date_re < date24 and x == True:    # +5 Standard + 29 Jahres Bonus
+                        x = False
+                        xps = xp
+                        print("ja")
 
                 na = {"gu_id": gu_id,  "ids": [{"id": mag_id}, {
                     "xp": xps}, {"msg": msg}, {"date": date}, {"LVL": lvl}, {"name": author_name}, {"pfp": str(mag.author.avatar_url)}]}
@@ -742,7 +806,7 @@ async def bug_task(ctx):
         await ctx.channel.send(embed=embed)
         msg1 = await client.wait_for('message')
         res1 = (msg1.content)
-        if res1 != None and res1 != " ":
+        if res1 != None and res1 != "":
             print(res1)
             embed = discord.Embed(title="**Report system for Python-bot**")
             embed.add_field(name="Whats the Bug?(please describe the bug)",
@@ -750,7 +814,7 @@ async def bug_task(ctx):
             await ctx.channel.send(embed=embed)
             msg2 = await client.wait_for('message')
             res2 = (msg2.content)
-            if res2 != None and res2 != " ":
+            if res2 != None and res2 != "":
                 print(res2)
                 embed = discord.Embed(title="**Report system for Python-bot**")
                 embed.add_field(name="Where did it happen?[Please write a Channel or Server/Guild]",
@@ -758,7 +822,7 @@ async def bug_task(ctx):
                 await ctx.channel.send(embed=embed)
                 msg3 = await client.wait_for('message')
                 res3 = (msg3.content)
-                if res3 != None and res3 != " ":
+                if res3 != None and res3 != "":
                     print(res3)
                     embed = discord.Embed(
                         title="**Report system for Python-bot**")
@@ -767,7 +831,7 @@ async def bug_task(ctx):
                     await ctx.channel.send(embed=embed)
                     msg4 = await client.wait_for('message')
                     res4 = (msg4.content)
-                    if res4 != None and res4 != " ":
+                    if res4 != None and res4 != "":
                         print(res4)
                         bugs.insert_one({"id": id, "name": author_name, "ans1": res1,
                                          "ans2": res2, "ans3": res3, "ans4": res4, })
@@ -785,15 +849,6 @@ async def bug_task(ctx):
 #####################################################################################################################
 
 
-@ client.command(pass_context=True, aliases=['ch'], case_insensitive=True)
-@ has_permissions(administrator=True)
-async def changeprefix(ctx, prefix):
-    gu_id = ctx.guild.id
-    a = gu.find_one({"_id": gu_id})
-    na = {"_id": gu_id, "prefix": prefix}
-    gu.update(a, na)
-
-
 @ client.command(pass_context=True, aliases=['h'], case_insensitive=True)
 async def help(ctx):
     embed = discord.Embed(title="HELP", color=0xff0000)
@@ -809,11 +864,17 @@ async def help(ctx):
     embed.add_field(
         name="bug", value="If you found a bug please report it with this command **ONLY USE THIS IN DMs**", inline=False)
     embed.add_field(
-        name="setdefaultrole", value="You can set a default role for new members with 'setdefaultfrole **the role** watch out its case-sensitive'", inline=False)
-    embed.add_field(
-        name="changeprefix", value="You change the default prefix from $ to what ever you want with 'changeprefix **new_prefix**'", inline=False)
-    embed.add_field(
         name="clear", value="You can clear channels with 'clear **the number of deleted messages**'", inline=False)
+    embed.add_field(
+        name="leaderboard", value="You can see the leaderboard of the server", inline=False)
+    embed.add_field(
+        name="lvl", value="You can see the xp or the lvl and the rank with 'lvl' or 'lvl @MEMBER'", inline=False)
+    embed.add_field(
+        name="aliases", value="You can see all aliases for each command", inline=False)
+    embed.add_field(
+        name="set", value="You can set the setting of your server[defaultrole, prefix, lvl] (CAN ONLY BE USED FROM ADMINS)", inline=False)
+    embed.add_field(
+        name="stackoverflow", value="You can search for questions in Stack Overflow", inline=False)
     await ctx.send(embed=embed)
 
 
@@ -958,11 +1019,18 @@ async def super_help(ctx):
         embed.add_field(
             name="bug", value="If you found a bug please report it with this command **ONLY USE THIS IN DMs**", inline=False)
         embed.add_field(
-            name="setdefaultrole", value="You can set a default role for new members with 'setdefaultfrole **the role** watch out its case-sensitive'", inline=False)
-        embed.add_field(
-            name="changeprefix", value="You change the default prefix from $ to what ever you want with 'changeprefix **new_prefix**'", inline=False)
-        embed.add_field(
             name="clear", value="You can clear channels with 'clear **the number of deleted messages**'", inline=False)
+        embed.add_field(
+            name="leaderboard", value="You can see the leaderboard of the server", inline=False)
+        embed.add_field(
+            name="lvl", value="You can see the xp or the lvl and the rank with 'lvl' or 'lvl @MEMBER'", inline=False)
+        embed.add_field(
+            name="aliases", value="You can see all aliases for each command", inline=False)
+        embed.add_field(
+            name="set", value="You can set the setting of your server[defaultrole, prefix, lvl] (CAN ONLY BE USED FROM ADMINS)", inline=False)
+        embed.add_field(
+            name="stackoverflow", value="You can search for questions in Stack Overflow", inline=False)
+
         await ctx.send(embed=embed)
         emed = discord.Embed(title="to Invite the Bot", color=0x37ff00)
         emed.add_field(name="Click this link please",
@@ -973,20 +1041,11 @@ async def super_help(ctx):
 
 
 @ client.command(pass_context=True, case_insensitive=True)
-async def id(ctx):
-    author = ctx.message.author
-    tag = author.discriminator
-    name = author.name
-    author_name = name + "#" + tag
-    g = author.id
-    print(author_name)
-    print(g)
-    # print(add)
-
-
-@ client.command(pass_context=True, case_insensitive=True)
 async def bug(ctx):
-    client.loop.create_task(bug_task(ctx))
+    if isinstance(ctx.channel, discord.channel.DMChannel):
+        client.loop.create_task(bug_task(ctx))
+    else:
+        client.loop.create_task(error_not_found(ctx))
 
 
 @ client.command(pass_context=True, aliases=['ba'], case_insensitive=True)
@@ -1021,7 +1080,7 @@ async def unbann(ctx, wer):
         print(na)
         usr.update(a, na)
 
-
+'''
 @ client.command(pass_context=True, case_insensitive=True)
 async def abb(ctx):
     author = ctx.message.author
@@ -1033,6 +1092,7 @@ async def abb(ctx):
         a = ctx.guild.id
         print(a)
         gu.insert_one({"_id": a, "prefix": "$", "role": "none"})
+'''
 
 
 @client.command(pass_context=True, case_insensitive=True)
@@ -1040,24 +1100,52 @@ async def abb(ctx):
 async def set(ctx, sadge, cas):
     int_gu_id = int(ctx.guild.id)
     fo = gu.find_one({"_id": int_gu_id})
-    if sadge == "prefix":
+    if sadge == "prefix" or sadge == 'pref':
         gu_id = ctx.guild.id
         na = {"_id": gu_id, "prefix": cas}
         gu.update(fo, na)
+        embed = discord.Embed(color=0xff0000)
+        embed.add_field(
+            name="Changed", value=f"You changed **prefix to {cas}**", inline=False)
+        await ctx.send(embed=embed)
     if sadge == 'defaultrole' or sadge == 'defr' or sadge == "dr":
         a = ctx.guild.id
         a = gu.find_one({"_id": a})
         pref = a['prefix']
         na = {"$set": {'prefix': pref, 'role': cas}}
         print(a)
-        gu.update(a, na)
-    if sadge == "lvl":
-        a = ctx.guild.id
-        d = gu.find_one({"_id": a})
-        pref = d['prefix']
-        ro = d['role']
-        na = {"$set": {'prefix': pref, 'role': ro, 'lvl': cas}}
-        gu.update(d, na)
+        if get(ctx.guild.roles, name=cas):
+            gu.update(a, na)
+            embed = discord.Embed(color=0xff0000)
+            embed.add_field(
+                name="Changed", value=f"You changed **defaultrole to {cas}**", inline=False)
+            await ctx.send(embed=embed)
+        else:
+            embeder = discord.Embed(color=0xff0000)
+            embeder.add_field(
+                name="ERROR", value=f"Can't find the role {cas} please write the role name", inline=False)
+
+    if sadge == "lvl" or sadge == 'xp':
+        if cas == "yes" or cas == "no" or cas == None:
+            a = ctx.guild.id
+            d = gu.find_one({"_id": a})
+            pref = d['prefix']
+            ro = d['role']
+            na = {"$set": {'prefix': pref, 'role': ro, 'lvl': cas}}
+            gu.update(d, na)
+            embed = discord.Embed(color=0xff0000)
+            embed.add_field(
+                name="Changed", value=f"You changed **lvl to {cas}**", inline=False)
+            await ctx.send(embed=embed)
+        else:
+            embed = discord.Embed(color=0xff0000)
+            embed.add_field(
+                name="ERROR", value="Please write ``set lvl [yes/no]``", inline=False)
+            await ctx.send(embed=embed)
+    if sadge == None and cas == None or sadge == None or cas == None:
+        embed = discord.Embed(color=0xff0000)
+        embed.add_field(
+            name="ERROR", value="You can set the setting of your server[defaultrole, prefix, lvl] (CAN ONLY BE USED FROM ADMINS)", inline=False)
 
 
 @client.command(pass_context=True, case_insensitive=True)
@@ -1083,22 +1171,27 @@ async def testcommand(ctx, command):
     if command == 'github':
         embed = discord.Embed()
         embed.add_field(name="Preview command",
-                        value="`$github python discord`", inline=False)
-        await ctx.send(embed=embed)
-    if command == 'setdefaultrole':
-        embed = discord.Embed()
-        embed.add_field(name="Preview command",
-                        value="`$py3 https://github.com/lordLegal/Test-repo.git while.py none`", inline=False)
-        await ctx.send(embed=embed)
-    if command == 'changeprefix':
-        embed = discord.Embed()
-        embed.add_field(name="Preview command",
-                        value="`$changeprefix .`", inline=False)
+                        value="```$github python discord```", inline=False)
         await ctx.send(embed=embed)
     if command == 'clear':
         embed = discord.Embed()
         embed.add_field(name="Preview command",
-                        value="`$clear 10`", inline=False)
+                        value="```$clear 10```", inline=False)
+        await ctx.send(embed=embed)
+    if command == 'set':
+        embed = discord.Embed()
+        embed.add_field(name="Preview command",
+                        value="```$set lvl [yes/no]``` or ```$set prefix .``` or ```$set defaultrole Admin```", inline=False)
+        await ctx.send(embed=embed)
+    if command == 'stackoverflow':
+        embed = discord.Embed()
+        embed.add_field(name="Preview command",
+                        value="```$stackoverflow python discord```", inline=False)
+        await ctx.send(embed=embed)
+    if command == 'lvl':
+        embed = discord.Embed()
+        embed.add_field(name="Preview command",
+                        value="```$lvl @Python_is_cool```", inline=False)
         await ctx.send(embed=embed)
 
 
@@ -1110,200 +1203,395 @@ async def aliases(ctx):
     embed.add_field(name="python3", value="py3", inline=False)
     embed.add_field(name='python2', value="py2")
     embed.add_field(name="github", value="git")
-    embed.add_field(name="setdefaultrole", value="setdfr")
-    embed.add_field(name="changeprefix", value="ch")
     embed.add_field(name="clear", value="clear")
     embed.add_field(name="aliases", value="alis")
     embed.add_field(name="help", value="h")
+    embed.add_field(name="leaderboard", value="lead")
+    embed.add_field(name="lvl", value="xp")
+    embed.add_field(name="testcommand", value="tc")
+    embed.add_field(name="aliases", value="alis")
+    embed.add_field(name="stackoverflow", value="sv")
     await ctx.send(embed=embed)
 
 
-@client.command(pass_context=True)
-async def lvl(ctx):
+@client.command(pass_context=True, aliases=['xp'], case_insensitive=True)
+async def lvl(ctx, ead="None"):
+
     guild = str(ctx.guild.id)
     str_id = str(ctx.message.author.id)
-    author = ctx.message.author
-    id = author.id
-    pfp = author.avatar_url
-    print(pfp)
-    tag = author.discriminator
-    name = author.name
-    author_name = name + "#" + tag
-    if str_id != "823141173853028353" and str_id != "815492748249399306":
+    setting = gu.find_one({"_id": int(ctx.guild.id)})
+    lvl = setting['lvl']
 
-        fo_mag_id = us_gu.find_one({"gu_id": guild,
-                                    "ids": {"id": str_id}})
-        fo_id = str(fo_mag_id['ids'][0]['id'])
-        xp_int = int(fo_mag_id['ids'][1]['xp'])
-        msg_int = int(fo_mag_id['ids'][2]['msg'])
-        date_re = int(fo_mag_id['ids'][3]['date'])
-        lvl = int(fo_mag_id['ids'][4]['LVL'])
-        global LVLsg
-        LVLsg = 0
-        global max_xp
-        max_xp = 50
-        xp = str(xp_int)
-        print(xp_int)
+    if str_id != "823141173853028353" and str_id != "815492748249399306" and lvl == 'yes':
+        if ead == "None":
+            author = ctx.message.author
+            id = author.id
+            pfp = author.avatar_url
+            print(pfp)
+            tag = author.discriminator
+            name = author.name
+            author_name = name + "#" + tag
+            fo_mag_id = us_gu.find_one({"gu_id": guild,
+                                        "ids": {"id": str_id}})
+            fo_id = str(fo_mag_id['ids'][0]['id'])
+            xp_int = int(fo_mag_id['ids'][1]['xp'])
+            msg_int = int(fo_mag_id['ids'][2]['msg'])
+            date_re = int(fo_mag_id['ids'][3]['date'])
+            lvl = int(fo_mag_id['ids'][4]['LVL'])
+            global LVLsg
+            LVLsg = 0
+            global max_xp
+            max_xp = 50
+            xp = str(xp_int)
+            print(xp_int)
 
-        if xp_int >= 50:
-            print("LVL1")
-            LVLsg = 1
-            max_xp = 500
-            na = {'gu_id': guild, 'ids': [
-                {'id': str_id}, {'xp': xp_int}, {'msg': msg_int}, {'date': date_re}, {'LVL': LVLsg}, {"name": author_name}]}
-            us_gu.update(fo_mag_id, na)
-        if xp_int >= 500:
-            print("LVL2")
-            LVLsg = 2
-            max_xp = 1500
-            na = {'gu_id': guild, 'ids': [
-                {'id': str_id}, {'xp': xp_int}, {'msg': msg_int}, {'date': date_re}, {'LVL': LVLsg}, {"name": author_name}]}
-            us_gu.update(fo_mag_id, na)
-        if xp_int >= 1500:
-            print("LVL3")
-            LVLsg = 3
-            max_xp = 3000
-            na = {'gu_id': guild, 'ids': [
-                {'id': str_id}, {'xp': xp_int}, {'msg': msg_int}, {'date': date_re}, {'LVL': LVLsg}, {"name": author_name}]}
-            us_gu.update(fo_mag_id, na)
-        if xp_int >= 3000:
-            print("LVL4")
-            LVLsg = 4
-            max_xp = 5000
-            na = {'gu_id': guild, 'ids': [
-                {'id': str_id}, {'xp': xp_int}, {'msg': msg_int}, {'date': date_re}, {'LVL': LVLsg}, {"name": author_name}]}
-            us_gu.update(fo_mag_id, na)
-        if xp_int >= 5000:
-            print("LVL5")
-            LVLsg = 5
-            max_xp = 10000
-            na = {'gu_id': guild, 'ids': [
-                {'id': str_id}, {'xp': xp_int}, {'msg': msg_int}, {'date': date_re}, {'LVL': LVLsg}, {"name": author_name}]}
-            us_gu.update(fo_mag_id, na)
-        pic.download(pfp, str_id)
+            if xp_int >= 50:
+                print("LVL1")
+                LVLsg = 1
+                max_xp = 500
+                na = {'gu_id': guild, 'ids': [
+                    {'id': str_id}, {'xp': xp_int}, {'msg': msg_int}, {'date': date_re}, {'LVL': LVLsg}, {"name": author_name}, {"pfp": str(ctx.message.author.avatar_url)}]}
+                us_gu.update(fo_mag_id, na)
+            if xp_int >= 500:
+                print("LVL2")
+                LVLsg = 2
+                max_xp = 1500
+                na = {'gu_id': guild, 'ids': [
+                    {'id': str_id}, {'xp': xp_int}, {'msg': msg_int}, {'date': date_re}, {'LVL': LVLsg}, {"name": author_name}, {"pfp": str(ctx.message.author.avatar_url)}]}
+                us_gu.update(fo_mag_id, na)
+            if xp_int >= 1500:
+                print("LVL3")
+                LVLsg = 3
+                max_xp = 3000
+                na = {'gu_id': guild, 'ids': [
+                    {'id': str_id}, {'xp': xp_int}, {'msg': msg_int}, {'date': date_re}, {'LVL': LVLsg}, {"name": author_name}, {"pfp": str(ctx.message.author.avatar_url)}]}
+                us_gu.update(fo_mag_id, na)
+            if xp_int >= 3000:
+                print("LVL4")
+                LVLsg = 4
+                max_xp = 5000
+                na = {'gu_id': guild, 'ids': [
+                    {'id': str_id}, {'xp': xp_int}, {'msg': msg_int}, {'date': date_re}, {'LVL': LVLsg}, {"name": author_name}, {"pfp": str(ctx.message.author.avatar_url)}]}
+                us_gu.update(fo_mag_id, na)
+            if xp_int >= 5000:
+                print("LVL5")
+                LVLsg = 5
+                max_xp = 10000
+                na = {'gu_id': guild, 'ids': [
+                    {'id': str_id}, {'xp': xp_int}, {'msg': msg_int}, {'date': date_re}, {'LVL': LVLsg}, {"name": author_name}, {"pfp": str(ctx.message.author.avatar_url)}]}
+                us_gu.update(fo_mag_id, na)
+            if xp_int >= 10000:
+                print("LVL6")
+                LVLsg = 6
+                max_xp = 20000
+                na = {'gu_id': guild, 'ids': [
+                    {'id': str_id}, {'xp': xp_int}, {'msg': msg_int}, {'date': date_re}, {'LVL': LVLsg}, {"name": author_name}, {"pfp": str(ctx.message.author.avatar_url)}]}
+                us_gu.update(fo_mag_id, na)
+            if xp_int >= 20000:
+                print("LVL7")
+                LVLsg = 7
+                max_xp = 40000
+                na = {'gu_id': guild, 'ids': [
+                    {'id': str_id}, {'xp': xp_int}, {'msg': msg_int}, {'date': date_re}, {'LVL': LVLsg}, {"name": author_name}, {"pfp": str(ctx.message.author.avatar_url)}]}
+                us_gu.update(fo_mag_id, na)
+            if xp_int >= 40000:
+                print("LVL8")
+                LVLsg = 8
+                max_xp = 60000
+                na = {'gu_id': guild, 'ids': [
+                    {'id': str_id}, {'xp': xp_int}, {'msg': msg_int}, {'date': date_re}, {'LVL': LVLsg}, {"name": author_name}, {"pfp": str(ctx.message.author.avatar_url)}]}
+                us_gu.update(fo_mag_id, na)
+            if xp_int >= 60000:
+                print("LVL9")
+                LVLsg = 9
+                max_xp = 90000
+                na = {'gu_id': guild, 'ids': [
+                    {'id': str_id}, {'xp': xp_int}, {'msg': msg_int}, {'date': date_re}, {'LVL': LVLsg}, {"name": author_name}, {"pfp": str(ctx.message.author.avatar_url)}]}
+                us_gu.update(fo_mag_id, na)
+            if xp_int >= 90000:
+                print("LVL10")
+                LVLsg = 10
+                max_xp = 120000
+                na = {'gu_id': guild, 'ids': [
+                    {'id': str_id}, {'xp': xp_int}, {'msg': msg_int}, {'date': date_re}, {'LVL': LVLsg}, {"name": author_name}, {"pfp": str(ctx.message.author.avatar_url)}]}
+                us_gu.update(fo_mag_id, na)
+            pic.download(pfp, str_id)
 
-        font = ImageFont.truetype("font2.ttf", 30)
-        font2 = ImageFont.truetype("font2.ttf", 50)
-        rank = str(get_rank(guild, str_id))
-        img = Image.open("vorlage.png")
-        img4 = Image.open(f"{str_id}.png")
-        img3 = Image.open("profpfp.png")
-        size = (200, 200)
-        sudo = img4.resize(size)
-        sudo.save(f"{str_id}.png")
-        img2 = Image.open(f"{str_id}.png")
-        draw = ImageDraw.Draw(img)
-        img.paste(img2, (533, 53))
-        img.paste(img3, (400, 13), mask=img3)
+            font = ImageFont.truetype("font2.ttf", 30)
+            font2 = ImageFont.truetype("font2.ttf", 50)
+            rank = str(get_rank(guild, str_id))
+            img = Image.open("vorlage.png")
+            img4 = Image.open(f"{str_id}.png")
+            img3 = Image.open("profpfp.png")
+            size = (200, 200)
+            sudo = img4.resize(size)
+            sudo.save(f"{str_id}.png")
+            img2 = Image.open(f"{str_id}.png")
+            draw = ImageDraw.Draw(img)
+            img.paste(img2, (533, 53))
+            img.paste(img3, (400, 13), mask=img3)
 
-        draw.text((0, 0), f"{author_name}", (240, 248, 255), font=font)
-        draw.text((1080, 0), f"Rank#{rank}", (240, 248, 255), font=font)
-        print(LVLsg)
-        draw.text((565, 250), f"LVL: {str(LVLsg)}",
-                  (240, 248, 255), font=font2)
-        draw.text((490, 300), f"{xp}/{str(max_xp)} XP",
-                  (240, 248, 255), font=font2)
-        img.save(f'{str_id}_send.png', 'PNG')
+            draw.text((0, 0), f"{author_name}", (240, 248, 255), font=font)
+            draw.text((1080, 0), f"Rank#{rank}", (240, 248, 255), font=font)
+            print(LVLsg)
+            draw.text((565, 250), f"LVL: {str(LVLsg)}",
+                      (240, 248, 255), font=font2)
+            draw.text((490, 300), f"{xp}/{str(max_xp)} XP",
+                      (240, 248, 255), font=font2)
+            img.save(f'{str_id}_send.png', 'PNG')
 
-        await ctx.send(file=discord.File(f"{str_id}_send.png"))
-        os.remove(f"{str_id}_send.png")
-        os.remove(f"{str_id}.png")
+            await ctx.send(file=discord.File(f"{str_id}_send.png"))
+            os.remove(f"{str_id}_send.png")
+            os.remove(f"{str_id}.png")
+        else:
+            inp = str(ead)
+            id = inp.split('<')
+            id = id[1]
+            id2 = id.split('>')
+            id2 = id2[0]
+            id3 = id2.split('@')
+            id3 = id3[1]
+            id4 = id3.split('!')
+            id4 = id4[1]
 
+            print(id3, id4)
+            fo_mag_id = us_gu.find_one({"gu_id": guild,
+                                        "ids": {"id": str(id4)}})
+            if fo_mag_id == None:
+                embed = discord.Embed(color=0xff0000)
+                embed.add_field(name="ERROR",
+                                value="The player that you added have not written any message", inline=False)
+                await ctx.send(embed=embed)
+            else:
+                print(fo_mag_id)
+                fo_id = str(fo_mag_id['ids'][0]['id'])
+                xp_int = int(fo_mag_id['ids'][1]['xp'])
+                msg_int = int(fo_mag_id['ids'][2]['msg'])
+                date_re = int(fo_mag_id['ids'][3]['date'])
+                lvl = int(fo_mag_id['ids'][4]['LVL'])
+                author_name = fo_mag_id['ids'][5]['name']
+                pfp = fo_mag_id['ids'][6]['pfp']
+                global LVLsgg
+                LVLsgg = 0
+                global max_xpp
+                max_xpp = 50
+                xp = str(xp_int)
+                print(xp_int)
 
+                if xp_int >= 50:
+                    print("LVL1")
+                    LVLsgg = 1
+                    max_xpp = 500
+                    na = {'gu_id': guild, 'ids': [
+                        {'id': id4}, {'xp': xp_int}, {'msg': msg_int}, {'date': date_re}, {'LVL': LVLsgg}, {"name": author_name}, {"pfp": pfp}]}
+                    us_gu.update(fo_mag_id, na)
+                if xp_int >= 500:
+                    print("LVL2")
+                    LVLsgg = 2
+                    max_xpp = 1500
+                    na = {'gu_id': guild, 'ids': [
+                        {'id': id4}, {'xp': xp_int}, {'msg': msg_int}, {'date': date_re}, {'LVL': LVLsgg}, {"name": author_name}, {"pfp": pfp}]}
+                    us_gu.update(fo_mag_id, na)
+                if xp_int >= 1500:
+                    print("LVL3")
+                    LVLsgg = 3
+                    max_xpp = 3000
+                    na = {'gu_id': guild, 'ids': [
+                        {'id': id4}, {'xp': xp_int}, {'msg': msg_int}, {'date': date_re}, {'LVL': LVLsgg}, {"name": author_name}, {"pfp": pfp}]}
+                    us_gu.update(fo_mag_id, na)
+                if xp_int >= 3000:
+                    print("LVL4")
+                    LVLsgg = 4
+                    max_xpp = 5000
+                    na = {'gu_id': guild, 'ids': [
+                        {'id': id4}, {'xp': xp_int}, {'msg': msg_int}, {'date': date_re}, {'LVL': LVLsgg}, {"name": author_name}, {"pfp": pfp}]}
+                    us_gu.update(fo_mag_id, na)
+                if xp_int >= 5000:
+                    print("LVL5")
+                    LVLsgg = 5
+                    max_xpp = 10000
+                    na = {'gu_id': guild, 'ids': [
+                        {'id': id4}, {'xp': xp_int}, {'msg': msg_int}, {'date': date_re}, {'LVL': LVLsgg}, {"name": author_name}, {"pfp": pfp}]}
+                    us_gu.update(fo_mag_id, na)
+                if xp_int >= 10000:
+                    print("LVL6")
+                    LVLsgg = 6
+                    max_xpp = 20000
+                    na = {'gu_id': guild, 'ids': [
+                        {'id': id4}, {'xp': xp_int}, {'msg': msg_int}, {'date': date_re}, {'LVL': LVLsgg}, {"name": author_name}, {"pfp": pfp}]}
+                    us_gu.update(fo_mag_id, na)
+                if xp_int >= 20000:
+                    print("LVL7")
+                    LVLsgg = 7
+                    max_xpp = 40000
+                    na = {'gu_id': guild, 'ids': [
+                        {'id': id4}, {'xp': xp_int}, {'msg': msg_int}, {'date': date_re}, {'LVL': LVLsgg}, {"name": author_name}, {"pfp": pfp}]}
+                    us_gu.update(fo_mag_id, na)
+                if xp_int >= 40000:
+                    print("LVL8")
+                    LVLsgg = 8
+                    max_xpp = 60000
+                    na = {'gu_id': guild, 'ids': [
+                        {'id': id4}, {'xp': xp_int}, {'msg': msg_int}, {'date': date_re}, {'LVL': LVLsgg}, {"name": author_name}, {"pfp": pfp}]}
+                    us_gu.update(fo_mag_id, na)
+                if xp_int >= 60000:
+                    print("LVL9")
+                    LVLsgg = 9
+                    max_xpp = 90000
+                    na = {'gu_id': guild, 'ids': [
+                        {'id': id4}, {'xp': xp_int}, {'msg': msg_int}, {'date': date_re}, {'LVL': LVLsgg}, {"name": author_name}, {"pfp": pfp}]}
+                    us_gu.update(fo_mag_id, na)
+                if xp_int >= 90000:
+                    print("LVL10")
+                    LVLsgg = 10
+                    max_xpp = 120000
+                    na = {'gu_id': guild, 'ids': [
+                        {'id': id4}, {'xp': xp_int}, {'msg': msg_int}, {'date': date_re}, {'LVL': LVLsgg}, {"name": author_name}, {"pfp": pfp}]}
+                    us_gu.update(fo_mag_id, na)
+                pic.download(pfp, id4)
+
+                font = ImageFont.truetype("font2.ttf", 30)
+                font2 = ImageFont.truetype("font2.ttf", 50)
+                rank = str(get_rank(guild, id4))
+                img = Image.open("vorlage.png")
+                img4 = Image.open(f"{id4}.png")
+                img3 = Image.open("profpfp.png")
+                size = (200, 200)
+                sudo = img4.resize(size)
+                sudo.save(f"{id4}.png")
+                img2 = Image.open(f"{id4}.png")
+                draw = ImageDraw.Draw(img)
+                img.paste(img2, (533, 53))
+                img.paste(img3, (400, 13), mask=img3)
+
+                draw.text((0, 0), f"{author_name}", (240, 248, 255), font=font)
+                draw.text((1080, 0), f"Rank#{rank}",
+                          (240, 248, 255), font=font)
+                print(LVLsgg)
+                draw.text((565, 250), f"LVL: {str(LVLsgg)}",
+                          (240, 248, 255), font=font2)
+                draw.text((490, 300), f"{xp}/{str(max_xpp)} XP",
+                          (240, 248, 255), font=font2)
+                img.save(f'{id4}_send.png', 'PNG')
+
+                await ctx.send(file=discord.File(f"{id4}_send.png"))
+                os.remove(f"{id4}_send.png")
+                os.remove(f"{id4}.png")
+    else:
+        embed = discord.Embed(color=0xff0000)
+        embed.add_field(name="Your admin didn't activate the setting",
+                        value="if you are a admin activate it with `set lvl yes`", inline=False)
+        await ctx.send(embed=embed)
+'''
 @ client.command()
 async def pfp(ctx):
     id = ctx.message.author
     await ctx.send(file=discord.File("discordbotlogo.png"))
+'''
 
 
-@client.command()
+@client.command(pass_context=True, aliases=['leaderboard'], case_insensitive=True)
 async def lead(ctx):
-    fori = rank_col.find({"guid": str(ctx.guild.id)}).sort("xp", -1)
-    gu_name = ctx.guild.name
-    embed = discord.Embed()
-    font = ImageFont.truetype("fontlead.ttf", 100)
-    font2 = ImageFont.truetype("fontlead.ttf", 80)
-    font3 = ImageFont.truetype("fontlead.ttf", 50)
-    img = Image.new('RGB', (2480, 3508), color='black')
-    draw = ImageDraw.Draw(img)
-    draw.text(
-        (470, 196), f"Leaderboard from {gu_name}", (240, 248, 255), font=font)
-    draw.text(
-        (350, 390), f"Rank", (240, 248, 255), font=font2)
-    draw.text(
-        (1150, 390), f"Name", (240, 248, 255), font=font2)
-    draw.text(
-        (1900, 390), f"XP", (240, 248, 255), font=font2)
 
-    for num, doc in enumerate(fori):
-        #nmer = doc['name']
-        nmer = 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk#1234'
-        pfp_link = doc['pfp']
-        xp = doc['xp']
-        numer = num+1
-        print(num + 1, pfp_link, nmer, xp)
-        print("ja")
-        # embed.add_field(name=f"{str(numer)}",
-        #                value=f"{str(nmer)} mit {str(xp)}XP", inline=False)
-        print("ja")
-        # embed.set_image(str(pfp_link))
-        print("ja")
-        '''
-        if numer > 10:
-            print("jax")
-            break
-        else:
-            print("ja")
-            embed.add_field(name=f"{str(numer)}",
-                            value=f"{str(nmer)} mit {str(xp)}XP", inline=False)
-            print("ja")
-            embed.set_image(pfp_link)
+    setting = gu.find_one({"_id": int(ctx.guild.id)})
+    lvl = setting['lvl']
+    print(lvl)
 
-            print("ja")
-            pass
-        '''
+    if lvl == "yes":
 
-        rank_pos = int(700)
-        name_pos = int(700)
-        xp_pos = int(700)
-
-        print(str(numer))
-        # print(i)
-        print(rank_pos, numer)
-        plus_rank_pos = rank_pos + (300 * numer)
-        plus_name_pos = name_pos + (300 * numer)
-        plus_xp_pos = xp_pos + (300 * numer)
-
-        print(plus_rank_pos, plus_name_pos, plus_xp_pos)
-        print("ja")
+        fori = rank_col.find({"guid": str(ctx.guild.id)}).sort("xp", -1)
+        gu_name = ctx.guild.name
+        gu_id = ctx.guild.id
+        font = ImageFont.truetype("fontlead.ttf", 100)
+        font2 = ImageFont.truetype("fontlead.ttf", 80)
+        font3 = ImageFont.truetype("fontlead.ttf", 50)
+        font4 = ImageFont.truetype("fontlead.ttf", 70)
+        img = Image.new('RGB', (2480, 3508), color='black')
+        draw = ImageDraw.Draw(img)
         draw.text(
-            (3508, plus_rank_pos), f"{str(numer)}#", (240, 248, 255), font=font2)  # +300
-        print("ja")
-        print(len(str(nmer)))
-        name_len = len(str(nmer))
-        if name_len > 13:
-            draw.text(
-                (690, plus_name_pos), f"{str(nmer)}", (240, 248, 255), font=font3)  # +300
-            print("ja")
-        else:
-            draw.text(
-                (990, plus_name_pos), f"{str(nmer)}", (240, 248, 255), font=font2)  # +300
-            print("ja")
+            (470, 196), f"Leaderboard from {gu_name}", (240, 248, 255), font=font)
         draw.text(
-            (1890, plus_xp_pos), f"{str(xp)}", (240, 248, 255), font=font2)  # +300
-        print("ja")
-        pr_img = Image.open("local_image.jpg")
-        img.paste(pr_img, (350, plus_rank_pos))  # +300
+            (115, 390), f"Rank", (240, 248, 255), font=font2)
+        draw.text(
+            (950, 390), f"Name", (240, 248, 255), font=font2)
+        draw.text(
+            (1900, 390), f"XP", (240, 248, 255), font=font2)
 
-    print("ja")
+        for num, doc in enumerate(fori):
+            if int(num + 1) > 10:
+                break
+            nmer = doc['name']
+            id_usr = doc['usrid']
 
-    print("ja")
+            pfp_link = doc['pfp']
+            xp = doc['xp']
+            numer = num+1
+            pic.download(str(pfp_link), str(id_usr))
+            print(num + 1, pfp_link, nmer, xp)
 
-    img.save("jaj.png", "PNG")
-    print("ja")
+            rank_pos = int(400)
+            name_pos = int(400)
+            xp_pos = int(400)
 
-    print("ja")
-    # await ctx.send(embed=embed)
+            print(str(numer))
+            print(rank_pos, numer)
+
+            plus_rank_pos = rank_pos + (300 * numer)
+            plus_name_pos = name_pos + (300 * numer)
+            plus_xp_pos = xp_pos + (300 * numer)
+
+            print(plus_rank_pos, plus_name_pos, plus_xp_pos)
+
+            draw.text(
+                (130, plus_rank_pos), f"{str(numer)}#", (240, 248, 255), font=font2)  # +300
+
+            print(len(str(nmer)))
+            name_len = len(str(nmer))
+
+            lon = None
+
+            if name_len > 32:
+                lon = "set"
+                draw.text(
+                    (610, plus_name_pos), f"{str(nmer)}", (240, 248, 255), font=font3)  # +300
+
+            if name_len > 13 and lon == None:
+                lon = "set"
+                draw.text(
+                    (610, plus_name_pos), f"{str(nmer)}", (240, 248, 255), font=font4)  # +300
+
+            if lon == None:
+                draw.text(
+                    (610, plus_name_pos), f"{str(nmer)}", (240, 248, 255), font=font2)  # +300
+
+            draw.text(
+                (1890, plus_xp_pos), f"{str(xp)}", (240, 248, 255), font=font2)  # +300
+
+            pr_img = Image.open(f"{id_usr}.png")
+            print(pr_img.size)
+            size = (256, 256)
+            sudo = pr_img.resize(size)
+            sudo.save(f"{id_usr}.png")
+            img.paste(sudo, (350, plus_rank_pos))  # +300
+
+        img.save(f"{gu_id}_send.png", "PNG")
+
+        await ctx.send(file=discord.File(f"{gu_id}_send.png"))
+
+        os.remove(f"{gu_id}_send.png")
+
+        forik = rank_col.find({"guid": str(ctx.guild.id)}).sort("xp", -1)
+        for num, doc in enumerate(forik):
+
+            id_usr4 = doc['usrid']
+
+            print(f"{id_usr4}.png")
+            os.remove(f"{str(id_usr4)}.png")
+    else:
+        embed = discord.Embed(color=0xff0000)
+        embed.add_field(name="Your admin didn't activate the setting",
+                        value="if you are a admin activate it with `set lvl yes`", inline=False)
+        await ctx.send(embed=embed)
 
 
 # client.run("ODE1NDkyNzQ4MjQ5Mzk5MzA2.YDtMzg.8bd-Cc0rGS4cTSJv0lfAnGFIKHM")  # Real

@@ -1,0 +1,7 @@
+leaderboard(lead)
+lvl(xp) @ feature
+testcommand(tc)
+aliases(alis)
+set(featur=xp[lvl, xp], defaultrole[defr, dr], prefix[pref])
+bug command gefixed
+stackoverflow(sv)
