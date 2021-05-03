@@ -5,3 +5,4 @@ StackAPI
 pymongo
 dnspython
 Pillow
+dict_digger

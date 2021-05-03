@@ -23,6 +23,7 @@ from pymongo.message import update
 # import urllib.request
 from stackapi import StackAPI
 
+
 import pilowtest as pic
 import tt
 
@@ -40,7 +41,7 @@ global inpu
 inpu = input()
 
 clients = pymongo.MongoClient(
-    "mongodb+srv://admin:Gnsv2u00@cluster0.n69bg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+    "mongodb+srv://newadmin:MPFRST2u00@cluster0.n69bg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", connect=False)
 db = clients.test
 mydb = clients["pythondiscordbot"]
 col = mydb["dockers"]
@@ -69,7 +70,7 @@ def get_prefix(client, message):
 intents = discord.Intents.all()
 
 
-client = commands.Bot(command_prefix="!", intents=intents)
+client = commands.Bot(command_prefix=get_prefix, intents=intents)
 client.remove_command('help')
 
 #####################################################################################################################
@@ -783,6 +784,18 @@ async def py2_task(ctx, link, dateiname, * pips):
     userdocker.stop()
     userdocker.remove()
     col.delete_one({"ids": x})
+
+
+async def bug2_task(ctx):
+    embed = discord.Embed(title="**Report system for Python-bot**")
+    embed.add_field(
+        name="First Infos", value=" Please enter any text and hit [Enter]. File attachments are not supported. if you want to do send me a picture or a video pls send it with https://streamable.com/ for Videos or https://imgur.com/upload for pictures", inline=False)
+    await ctx.send(embed=embed)
+    embed = discord.Embed(title="**Report system for Python-bot**")
+    embed.add_field(name="How important is it?[Very important/important/not realy important]",
+                    value="Please enter any text and hit [Enter]. File attachments are not supported.", inline=False)
+    messg = await ctx.channel.send(embed=embed)
+    messg.add
 
 
 async def bug_task(ctx):
@@ -1519,7 +1532,9 @@ async def lead(ctx):
 
         for num, doc in enumerate(fori):
             if int(num + 1) > 10:
+                print("break")
                 break
+            print("Stay High")
             nmer = doc['name']
             id_usr = doc['usrid']
 
@@ -1527,11 +1542,13 @@ async def lead(ctx):
             xp = doc['xp']
             numer = num+1
             pic.download(str(pfp_link), str(id_usr))
+            print(f"{nmer} downloaded")
             print(num + 1, pfp_link, nmer, xp)
+            print("Stay High2")
 
-            rank_pos = int(400)
-            name_pos = int(400)
-            xp_pos = int(400)
+            rank_pos = int(310)
+            name_pos = int(310)
+            xp_pos = int(310)
 
             print(str(numer))
             print(rank_pos, numer)
@@ -1552,27 +1569,41 @@ async def lead(ctx):
 
             if name_len > 32:
                 lon = "set"
+                print("Stay High6")
                 draw.text(
                     (610, plus_name_pos), f"{str(nmer)}", (240, 248, 255), font=font3)  # +300
 
             if name_len > 13 and lon == None:
                 lon = "set"
+                print("Stay High5")
                 draw.text(
                     (610, plus_name_pos), f"{str(nmer)}", (240, 248, 255), font=font4)  # +300
 
             if lon == None:
+                print("Stay High7")
                 draw.text(
                     (610, plus_name_pos), f"{str(nmer)}", (240, 248, 255), font=font2)  # +300
-
+            print("Stay Highfen")
             draw.text(
                 (1890, plus_xp_pos), f"{str(xp)}", (240, 248, 255), font=font2)  # +300
-
-            pr_img = Image.open(f"{id_usr}.png")
-            print(pr_img.size)
-            size = (256, 256)
-            sudo = pr_img.resize(size)
-            sudo.save(f"{id_usr}.png")
+            print("Stay Highsi")
+            try:
+                pr_img = Image.open(f"{id_usr}.png")
+                print("Stay Highsi")
+                print(pr_img.size)
+                print("Stay Highsi")
+                size = (256, 256)
+                print("Stay Highsi")
+                sudo = pr_img.resize(size)
+                print("Stay Highsi")
+                sudo.save(f"{id_usr}.png")
+            except Exception:
+                pr_img = Image.open("error.png")
+                size = (256, 256)
+                sudo = pr_img.resize(size)
+                sudo.save("error.png")
             img.paste(sudo, (350, plus_rank_pos))  # +300
+        print("Stay Highfin")
 
         img.save(f"{gu_id}_send.png", "PNG")
 
@@ -1594,7 +1625,7 @@ async def lead(ctx):
         await ctx.send(embed=embed)
 
 
-# client.run("ODE1NDkyNzQ4MjQ5Mzk5MzA2.YDtMzg.8bd-Cc0rGS4cTSJv0lfAnGFIKHM")  # Real
-client.run("ODIzMTQxMTczODUzMDI4MzUz.YFcf9Q.8ySn-WN5vLDwFA_HRQxtmuRtu9E")  # Beta
+client.run("ODE1NDkyNzQ4MjQ5Mzk5MzA2.YDtMzg.8bd-Cc0rGS4cTSJv0lfAnGFIKHM")  # Real
+# client.run("ODIzMTQxMTczODUzMDI4MzUz.YFcf9Q.8ySn-WN5vLDwFA_HRQxtmuRtu9E")  # Beta
 
 # https://top.gg/bot/815492748249399306/vote
