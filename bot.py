@@ -1625,7 +1625,4 @@ async def lead(ctx):
         await ctx.send(embed=embed)
 
 
-client.run("ODE1NDkyNzQ4MjQ5Mzk5MzA2.YDtMzg.8bd-Cc0rGS4cTSJv0lfAnGFIKHM")  # Real
-# client.run("ODIzMTQxMTczODUzMDI4MzUz.YFcf9Q.8ySn-WN5vLDwFA_HRQxtmuRtu9E")  # Beta
-
-# https://top.gg/bot/815492748249399306/vote
+client.run("")  
