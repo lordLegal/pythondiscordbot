@@ -41,7 +41,7 @@ global inpu
 inpu = input()
 
 clients = pymongo.MongoClient(
-    "mongodb+srv://newadmin:MPFRST2u00@cluster0.n69bg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", connect=False)
+    "mongodb+srv://:@cluster0.n69bg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", connect=False)
 db = clients.test
 mydb = clients["pythondiscordbot"]
 col = mydb["dockers"]
@@ -549,13 +549,13 @@ async def py3_task(ctx, link, dateiname, * pips):
         str_status = str(status)
         if lens > 1998 and super_log != logg:
             login_data = {
-                'api_dev_key': '0ZrhtBXCoCviCxpJUn75tw7CvapiukpW',
+                'api_dev_key': '',
                 'api_user_name': 'Retox',
-                'api_user_password': 'WLivh?xFKDLNjH7'
+                'api_user_password': ''
             }
             data = {
                 'api_option': 'paste',
-                'api_dev_key': '0ZrhtBXCoCviCxpJUn75tw7CvapiukpW',
+                'api_dev_key': '',
                 'api_paste_code': logg,
                 'api_paste_name': f'Logg von {author_name}',
                 'api_paste_expire_date': '1Y',
@@ -709,13 +709,13 @@ async def py2_task(ctx, link, dateiname, * pips):
         str_status = str(status)
         if lens > 1998 and super_log != logg:
             login_data = {
-                'api_dev_key': '0ZrhtBXCoCviCxpJUn75tw7CvapiukpW',
+                'api_dev_key': '',
                 'api_user_name': 'Retox',
-                'api_user_password': 'WLivh?xFKDLNjH7'
+                'api_user_password': ''
             }
             data = {
                 'api_option': 'paste',
-                'api_dev_key': '0ZrhtBXCoCviCxpJUn75tw7CvapiukpW',
+                'api_dev_key': '',
                 'api_paste_code': logg,
                 'api_paste_name': f'Logg von {author_name}',
                 'api_paste_expire_date': '1Y',
