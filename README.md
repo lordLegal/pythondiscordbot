@@ -18,27 +18,39 @@ Hey this is my Python Bot its not the cleanest code but it works the most time. 
 
 <!-- GETTING STARTED -->
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
+This are things you need to install
+* python 3
+  ```
+  https://www.python.org/
+  ```
+* Docker
+  ```
+  https://www.docker.com/get-started
   ```
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
+1. You have to edit all tokes[Discord, Github, pastbin]
 2. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/lordLegal/pythondiscordbot.git
    ```
-3. Install NPM packages
+3. Install Python packages
    ```sh
-   npm install
+   python3 -m pip install -r requirements.txt
    ```
-4. Enter your API in `config.js`
-   ```JS
-   const API_KEY = 'ENTER YOUR API';
+4. add the docker fiels
+   ```sh
+   cd py3dockerfile
+   docker -t mypython:3-alpine .
+   cd ..
+   cd py2docker
+   docker -t mypython:2-alpine .
    ```
+5. Run the Bot
+  ```sh
+  python3 bot.py
+  ```
 
 
 
