@@ -19,15 +19,14 @@ from docker.api import container
 from github import Github
 from PIL import Image, ImageDraw, ImageFont
 from pymongo.message import update
-# from bs4 import BeautifulSoup
-# import urllib.request
 from stackapi import StackAPI
 
 
 import pilowtest as pic
 import tt
 
-time_date_ = datetime.datetime.now()
+
+time_date_ = datetime.datetime.now()  # get the time for the lvl System
 time_date_string = str(time_date_)
 time_date_splittet = time_date_string.split('.')[0]
 
@@ -36,12 +35,12 @@ time_date_splittet = time_date_string.split('.')[0]
 #                                                         by                                                        #
 #                                                        Retox                                                      #
 #####################################################################################################################
-print("Whats New?")
-global inpu
+#print("Whats New?")
+global inpu  # Update System for my Server
 inpu = input()
 
 clients = pymongo.MongoClient(
-    "mongodb+srv://:@cluster0.n69bg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", connect=False)
+    "mongodb+srv://:@cluster0.n69bg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", connect=False)  # Mongo DB Login
 db = clients.test
 mydb = clients["pythondiscordbot"]
 col = mydb["dockers"]
@@ -57,6 +56,7 @@ rank_col = mydb["guild_ranks"]
 #                                                         by                                                        #
 #                                                        Retox                                                      #
 #####################################################################################################################
+# Function for the guild specific prefix
 def get_prefix(client, message):
     if isinstance(message.channel, discord.channel.DMChannel):
         return '$'
@@ -68,9 +68,8 @@ def get_prefix(client, message):
 
 
 intents = discord.Intents.all()
-
-
-client = commands.Bot(command_prefix=get_prefix, intents=intents)
+client = commands.Bot(command_prefix=get_prefix,
+                      intents=intents)   # Set the Bot
 client.remove_command('help')
 
 #####################################################################################################################
@@ -82,6 +81,7 @@ client.remove_command('help')
 
 @client.event
 async def on_ready():
+    # Activity ON
     await client.change_presence(status=discord.Status.online, activity=discord.Game('Run python code on a BOT $help '))
     print('I am here')
     a = client.get_guild(id)
@@ -91,6 +91,7 @@ async def on_ready():
     for x in searcher:
         z = dockers.containers.get(x)
         try:
+            # Check if there already docker container running and stop them
             col.delete_one({"ids": x})
             z.stop()
             z.remove()
@@ -117,7 +118,7 @@ async def on_member_join(member):
         pass
     else:
         usr.insert_one({"_id": guid_str, "status": "not",
-                        "reason": "no", "xp": 0, "msg": 0})
+                        "reason": "no", "xp": 0, "msg": 0})             # Insert every member that Joins
     a = gu.find_one({"_id": gu_id})
     print(a)
     role_name = str(a['role'])
@@ -136,6 +137,7 @@ async def on_member_join(member):
 
 
 @ client.event
+# There shut also be a remove function
 async def on_member_remove(member):
     print(member)
 
@@ -143,14 +145,20 @@ async def on_member_remove(member):
 @ client.event
 async def on_guild_join(guild):
     gu_id = guild.id
-    gu.insert_one({"_id": gu_id, "prefix": "$", "role": "none", "lvl": "no"})
+    gu.insert_one({"_id": gu_id, "prefix": "$", "role": "none",
+                  "lvl": "no"})       # Insert the guild
 
 
 @ client.event
 async def on_guild_remove(guild):
     gu_id = guild.id
+    # Remove the guild
     a = gu.find_one({"_id": gu_id})
     gu.delete_one(a)
+
+################################################################
+#                    Error Handling & some dump functions      #
+################################################################
 
 
 @ client.event
@@ -214,7 +222,7 @@ async def error_not_found(ctx):
     await ctx.send(embed=embed)
 
 
-def gen_rank(str_guid, str_usrid):
+def gen_rank(str_guid, str_usrid):                  # Generates the leaderboard to a extra table
     for us_gus in us_gu.find({"gu_id": str_guid}):
         print(us_gus)
         gu_id = us_gus['gu_id']
@@ -250,6 +258,7 @@ def gen_rank(str_guid, str_usrid):
     print("end-com")
 
 
+# returns the rank from a user
 def get_rank(str_guid, str_usrid):
     zulul = rank_col.find({"guid": str_guid}).sort("xp", -1)
     for num, doc in enumerate(zulul):
@@ -260,6 +269,7 @@ def get_rank(str_guid, str_usrid):
 
 
 @client.event
+# Set the lvl from the member
 async def on_message(ev_message):
     if isinstance(ev_message.channel, discord.channel.DMChannel):
         print("dm")
@@ -284,9 +294,13 @@ async def on_message(ev_message):
             jahr_st = int(time.strftime("%Y"))
             monat_st = int(time.strftime("%m"))
             Tag_st = int(time.strftime("%d"))
-            sek_st = int(time.strftime("%S"))
+            sek_st = int(time.strftime("%S"))               # get the time
             min_st = int(time.strftime("%M"))
             stun_st = int(time.strftime("%H"))
+
+            ##############################################################
+            #                      Converts it to Seconds               #
+            ##############################################################
 
             jahr = jahr_st * 365
             jahr = jahr * 86400
@@ -332,6 +346,9 @@ async def on_message(ev_message):
             min = min_st * 60
             stunde = stun_st * 3600
             date = jahr + monat + tag + sek + min + stunde
+
+            # calcualtes the times
+
             date1 = date + 31536000  # ein Jahr
             date2 = date + 15768000  # halbes Jahr
             date3 = date + 7884000  # 3 Monate
@@ -371,6 +388,10 @@ async def on_message(ev_message):
                 xp = xp_int + 1
 
                 print("error")
+
+                ##############################################################
+                #                      Set the xp                            #
+                ##############################################################
 
                 if mag_id == fo_id:
                     x = True
@@ -454,6 +475,10 @@ async def on_message(ev_message):
                         xps = xp
                         print("ja")
 
+                ##############################################################
+                #                      Updating on the database              #
+                ##############################################################
+
                 na = {"gu_id": gu_id,  "ids": [{"id": mag_id}, {
                     "xp": xps}, {"msg": msg}, {"date": date}, {"LVL": lvl}, {"name": author_name}, {"pfp": str(mag.author.avatar_url)}]}
                 us_gu.update(fo_mag_id, na)
@@ -462,7 +487,7 @@ async def on_message(ev_message):
                 us_gu.insert_one(
                     {"gu_id": gu_id,  "ids": [{"id": mag_id}, {"xp": 5}, {"msg": 1}, {"date": date}, {"LVL": 0}, {"name": author_name}, {"pfp": str(mag.author.avatar_url)}]})
 
-        await client.process_commands(ev_message)
+        await client.process_commands(ev_message)  # runs the commnds
 
 #####################################################################################################################
 #                                                        Tasks                                                      #
@@ -497,6 +522,7 @@ async def py3_task(ctx, link, dateiname, * pips):
     a = link.split("/")[-1]
     d = a
     c = d.split(".")[0]
+    # set the commands to run the script
     pip = " ".join(pips)
     if pip == 'none':
         clone = '/bin/sh -c "git clone ' + link + \
@@ -506,7 +532,7 @@ async def py3_task(ctx, link, dateiname, * pips):
             pip + ' ; python3 -u /' + c + '/' + dateiname + '"'
 
     print(clone)
-    dockers = docker.from_env()
+    dockers = docker.from_env()                 # start docker
     userdocker = dockers.containers.run(
         image='mypython:3-alpine', detach=True, stderr=True, remove=False, name=author_id, command=clone)
     print("Test")
@@ -528,6 +554,10 @@ async def py3_task(ctx, link, dateiname, * pips):
     status = userdocker.status
     str_status = str(status)
     print(f'status:{status}')
+
+    ##############################################################
+    #                       Updating the login                   #
+    ##############################################################
 
     global super_log
     super_log = 'test'
@@ -630,6 +660,10 @@ async def py3_task(ctx, link, dateiname, * pips):
 #####################################################################################################################
 #####################################################################################################################
 
+
+##############################################################
+#                      Thats the same as above               #
+##############################################################
 
 async def py2_task(ctx, link, dateiname, * pips):
     author = ctx.message.author
@@ -785,6 +819,10 @@ async def py2_task(ctx, link, dateiname, * pips):
     userdocker.remove()
     col.delete_one({"ids": x})
 
+##############################################################
+#                      Not Finished thing               #
+##############################################################
+
 
 async def bug2_task(ctx):
     embed = discord.Embed(title="**Report system for Python-bot**")
@@ -796,6 +834,11 @@ async def bug2_task(ctx):
                     value="Please enter any text and hit [Enter]. File attachments are not supported.", inline=False)
     messg = await ctx.channel.send(embed=embed)
     messg.add
+
+
+##############################################################
+#                      Buggy bug report system               #
+##############################################################
 
 
 async def bug_task(ctx):
@@ -904,6 +947,7 @@ async def py3(ctx, link, dateiname, * pips):
             a = usr.find_one({"_id": author_id, })
             a_a = a['status']
             b_b = a['reason']
+            # I programmed a Bann system but it nerver cam to use
             b = str(b_b)
             if a_a == 'banned':
                 embed = discord.Embed(
@@ -923,7 +967,7 @@ async def py3(ctx, link, dateiname, * pips):
 @ client.command(pass_context=True, aliases=['git'], case_insensitive=True)
 async def github(ctx, * keyworda):
     keywords = ",".join(keyworda)
-    ACCESS_TOKEN = '33cf731019ac819a3f180fc82a10aaf7140a07b5'
+    ACCESS_TOKEN = 'TOKEN'
     g = Github(ACCESS_TOKEN)
     keywords = [keyword.strip() for keyword in keywords.split(',')]
     keywordi = ",".join(keyworda)
@@ -937,6 +981,7 @@ async def github(ctx, * keyworda):
         name="Found repos", value="-------------------------------------------------------------", inline=False)
 
     query = '+'.join(keywords) + '+in:readme+in:description'
+    # fetch data from api
     result = g.search_repositories(query, 'stars', 'desc')
     max_size = 10
     print(f'Found {result.totalCount} file(s)')
@@ -956,7 +1001,7 @@ async def github(ctx, * keyworda):
 
 @ client.command(pass_context=True, aliases=['python2'], case_insensitive=True)
 @ commands.cooldown(1, 300, BucketType.default)
-async def py2(ctx, link, dateiname, * pips):
+async def py2(ctx, link, dateiname, * pips):  # same as py3
     author = ctx.message.author
     u = author.id
     author_id = str(u)
@@ -995,6 +1040,7 @@ async def stackoverflow(ctx, * searches):
     g2 = re.sub("{", "", g1)
     g3 = re.sub("}", "", g2)
     g4 = re.sub(":", "", g3)
+    # fetch data  and split it in a very strange art
     g5 = re.sub(",", "", g4)
     print(str_search)
     stack = discord.Embed()
@@ -1014,6 +1060,7 @@ async def stackoverflow(ctx, * searches):
     await ctx.send(embed=stack)
 
 
+# help comman for my server
 @ client.command(pass_context=True, aliases=['sp_help'], case_insensitive=True)
 async def super_help(ctx):
     author = ctx.message.author
@@ -1053,7 +1100,7 @@ async def super_help(ctx):
         pass
 
 
-@ client.command(pass_context=True, case_insensitive=True)
+@ client.command(pass_context=True, case_insensitive=True)      # bug command
 async def bug(ctx):
     if isinstance(ctx.channel, discord.channel.DMChannel):
         client.loop.create_task(bug_task(ctx))
@@ -1061,6 +1108,7 @@ async def bug(ctx):
         client.loop.create_task(error_not_found(ctx))
 
 
+# bann memeber
 @ client.command(pass_context=True, aliases=['ba'], case_insensitive=True)
 async def bann(ctx, wer, * reason):
     author = ctx.message.author
@@ -1077,6 +1125,7 @@ async def bann(ctx, wer, * reason):
         usr.update(fo, na)
 
 
+# unbann member
 @ client.command(pass_context=True, aliases=['ub'], case_insensitive=True)
 async def unbann(ctx, wer):
     author = ctx.message.author
@@ -1094,7 +1143,7 @@ async def unbann(ctx, wer):
         usr.update(a, na)
 
 '''
-@ client.command(pass_context=True, case_insensitive=True)
+@ client.command(pass_context=True, case_insensitive=True)      # I used this command to Insert test data
 async def abb(ctx):
     author = ctx.message.author
     g = author.id
@@ -1110,7 +1159,7 @@ async def abb(ctx):
 
 @client.command(pass_context=True, case_insensitive=True)
 @has_permissions(administrator=True)
-async def set(ctx, sadge, cas):
+async def set(ctx, sadge, cas):                                 # the buggy settings command
     int_gu_id = int(ctx.guild.id)
     fo = gu.find_one({"_id": int_gu_id})
     if sadge == "prefix" or sadge == 'pref':
@@ -1245,7 +1294,7 @@ async def lvl(ctx, ead="None"):
             name = author.name
             author_name = name + "#" + tag
             fo_mag_id = us_gu.find_one({"gu_id": guild,
-                                        "ids": {"id": str_id}})
+                                        "ids": {"id": str_id}})        # get the data
             fo_id = str(fo_mag_id['ids'][0]['id'])
             xp_int = int(fo_mag_id['ids'][1]['xp'])
             msg_int = int(fo_mag_id['ids'][2]['msg'])
@@ -1256,7 +1305,7 @@ async def lvl(ctx, ead="None"):
             global max_xp
             max_xp = 50
             xp = str(xp_int)
-            print(xp_int)
+            print(xp_int)           # calcualtes the LVL
 
             if xp_int >= 50:
                 print("LVL1")
@@ -1328,6 +1377,9 @@ async def lvl(ctx, ead="None"):
                 na = {'gu_id': guild, 'ids': [
                     {'id': str_id}, {'xp': xp_int}, {'msg': msg_int}, {'date': date_re}, {'LVL': LVLsg}, {"name": author_name}, {"pfp": str(ctx.message.author.avatar_url)}]}
                 us_gu.update(fo_mag_id, na)
+
+            # makes the image
+
             pic.download(pfp, str_id)
 
             font = ImageFont.truetype("font2.ttf", 30)
@@ -1625,4 +1677,4 @@ async def lead(ctx):
         await ctx.send(embed=embed)
 
 
-client.run("")  
+client.run("")
